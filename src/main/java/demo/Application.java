@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Application {
 
-	@RequestMapping("/hello")
+	@RequestMapping("/devops")
     @ResponseBody
     String home() {
-        return "Opticca Consulting OpenShift Demo!";
+        return "Opticca Consulting CI/CD Demo!";
     }
 
     public static void main(String[] args) throws Exception {

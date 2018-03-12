@@ -8,28 +8,67 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<dependencies>
+	
+		<!-- Camel -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+			<version>2.18.2</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- jackson -->
+		<dependency>
+		    <groupId>org.apache.camel</groupId>
+		    <artifactId>camel-jackson</artifactId>
+		    <version>2.18.2</version>
+		</dependency>
+		
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
 	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>Opticca Releases Repository</name>
-			<url>http://nexus-cicd.192.168.99.100.nip.io/repository/maven-releases</url>
-			<layout>default</layout>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Opticca Snapshots Repository</name>
-			<url>http://nexus-cicd.192.168.99.100.nip.io/repository/maven-snapshots/</url>
-			<layout>default</layout>
-		</snapshotRepository>
-	</distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Opticca Releases Repository</name>
+            <url>http://nexus-cicd.192.168.99.100.nip.io/repository/maven-releases</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Opticca Snapshots Repository</name>
+            <url>http://nexus-cicd.192.168.99.100.nip.io/repository/maven-snapshots/</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
+	
 </project>
