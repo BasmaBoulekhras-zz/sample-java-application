@@ -15,10 +15,14 @@ public class Application {
 	@RequestMapping("/devops")
     @ResponseBody
     String home() {
-        return "Opticca Consulting CI/CD Demo!";
+		
+		String string = "Opticca Consulting CI/CD Demo!";
+		System.out.println(string);
+        return string;
     }
 
     public static void main(String[] args) throws Exception {
+    	
         SpringApplication.run(Application.class, args);
     }
 }
