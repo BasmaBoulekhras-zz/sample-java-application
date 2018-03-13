@@ -15,23 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Application {
 
-	@RequestMapping("/devops")
+	@RequestMapping("/")
     @ResponseBody
     String home() {
 		
-		String string = "Opticca Consulting Demo!";
+		String string = "Opticca Consulting Revolutionary Platforms!";
 		System.out.println(string);
-        return string;
-    }
-
-	@RequestMapping("/createerror")
-	@ResponseBody
-	String error() throws Exception{
 		
 		Logger log = Logger.getLogger(Application.class.getName());
-        log.log(Level.SEVERE, "ERROR: Something pretty bad has happened and should probably be addressed sooner or later.");
-        throw new Exception();
-	}
+        log.log(Level.INFO, "Succes: "+string);
+        return string;
+    }
 
     public static void main(String[] args) throws Exception {
     	
