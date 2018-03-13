@@ -1,5 +1,8 @@
 package demo;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,9 +28,9 @@ public class Application {
 	@ResponseBody
 	String error() throws Exception{
 		
-		for(;;) {
-			
-		}
+		Logger log = Logger.getLogger(Application.class.getName());
+        log.log(Level.SEVERE, "ERROR: Something pretty bad has happened and should probably be addressed sooner or later.");
+        throw new Exception();
 	}
 
     public static void main(String[] args) throws Exception {
