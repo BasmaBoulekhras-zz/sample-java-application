@@ -16,10 +16,19 @@ public class Application {
     @ResponseBody
     String home() {
 		
-		String string = "Opticca Consulting CI/CD Demo!";
+		String string = "Opticca Consulting Demo!";
 		System.out.println(string);
         return string;
     }
+
+	@RequestMapping("/createerror")
+	@ResponseBody
+	String error() throws Exception{
+		
+		for(;;) {
+			
+		}
+	}
 
     public static void main(String[] args) throws Exception {
     	
