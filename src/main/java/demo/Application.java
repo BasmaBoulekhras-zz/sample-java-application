@@ -19,7 +19,7 @@ public class Application {
     @ResponseBody
     String home() {
 		
-		String string = "Opticca Consulting Revolutionary Platforms!";
+		String string = "Hello world";
 		System.out.println(string);
 		
 		Logger log = Logger.getLogger(Application.class.getName());
