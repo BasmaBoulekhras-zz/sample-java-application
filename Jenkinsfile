@@ -6,40 +6,42 @@ pipeline {
   
   agent {
     kubernetes {
-      label 'sample-app'
+      label 'mypod'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
 kind: Pod
 metadata:
-labels:
-  component: ci
+  labels:
+    some-label: some-label-value
 spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: cd-jenkins
   containers:
-  - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
+  - name: maven
+    image: maven:alpine
     command:
     - cat
     tty: true
-  - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
+  - name: busybox
+    image: busybox
     command:
     - cat
     tty: true
 """
-}
-  }  
+    }
+  }
   stages {
-    stage ('Build image') {
+    stage('Run maven') {
       steps {
-        container('gcloud') {
-                    sh "PYTHONUNBUFFERED=1 gcloud container builds submit -t ${imageTag} ."
+        container('maven') {
+          sh 'mvn -version'
+        }
+        container('busybox') {
+          sh '/bin/busybox'
         }
       }
-    }  
+    }
   }
+}
   
   
 }
