@@ -15,14 +15,15 @@ metadata:
   labels:
     some-label: some-label-value
 spec:
+  serviceAccountName: cd-jenkins
   containers:
-  - name: maven
-    image: maven:alpine
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
     command:
     - cat
     tty: true
-  - name: busybox
-    image: busybox
+  - name: kubectl
+    image: gcr.io/cloud-builders/kubectl
     command:
     - cat
     tty: true
@@ -30,16 +31,14 @@ spec:
     }
   }
   stages {
-    stage('Run maven') {
-      steps {
-        container('maven') {
-          sh 'mvn -version'
+    stage('Build and push image with Container Builder') {
+            steps {
+                container('gcloud') {
+                    sh "PYTHONUNBUFFERED=1 gcloud container builds submit -t ${imageTag} ."
+                }
+            }
         }
-        container('busybox') {
-          sh '/bin/busybox'
-        }
-      }
-    }
+   
   }
 }
   
