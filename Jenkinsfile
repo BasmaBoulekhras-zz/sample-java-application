@@ -3,7 +3,16 @@ def  appName = 'sample-app'
 def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 pipeline {
-  stage 'Build image'
-    sh("docker build -t ${imageTag} .")
+  agent { docker { image 'maven:3.3.3' } }   
+  stages {
+    stage ('Build image') {
+      steps {
+        sh("docker build -t ${imageTag} .")
+      }
+    }  
+  }
+  
+  
+    
   
 }
