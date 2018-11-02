@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "hello workd"
+echo "Hello Workd"
+exit 0
