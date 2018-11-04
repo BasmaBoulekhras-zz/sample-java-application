@@ -15,27 +15,33 @@ metadata:
     some-label: some-label-value
 spec:
   containers:
-  - name: maven
-    image: maven:alpine
+  - name: kubectl
+    image: lachlanevenson/k8s-kubectl:v1.8.0
     command:
     - cat
     tty: true
-  - name: busybox
-    image: busybox
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
     command:
     - cat
     tty: true
+
 """
     }
   }
   stages {
-    stage('Run maven') {
+    stage('do some kubectl work') {
       steps {
-        container('maven') {
-          sh 'mvn -version'
+        container('kubectl') {
+          sh "kubectl get nodes"
         }
-        container('busybox') {
-          sh '/bin/busybox'
+       
+      }
+    }
+    stage('Build and push image with Container Builder') {
+      steps {
+        container('gcloud') {
+          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
         }
       }
     }
