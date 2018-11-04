@@ -10,9 +10,5 @@ pipeline {
         sh("docker build -t ${imageTag} .")
       }
     }  
-  }
-  
-  
-    
-  
+  }          
 }
