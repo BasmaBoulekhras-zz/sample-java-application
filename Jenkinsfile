@@ -17,11 +17,6 @@ metadata:
 spec:
   serviceAccountName: cd-jenkins
   containers:
-  - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
-    command:
-    - cat
-    tty: true
   - name: kubectl
     image: gcr.io/cloud-builders/kubectl
     command:
@@ -31,10 +26,10 @@ spec:
     }
   }
   stages {
-    stage('Build and push image with Container Builder') {
+    stage('do some kubectl work') {
       steps {
-        container('gcloud') {
-          sh "PYTHONUNBUFFERED=1 gcloud container builds submit -t ${imageTag} ."
+        container('kubectl') {
+          sh "kubectl get nodes"
         }
       }
     }
