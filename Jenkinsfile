@@ -1,5 +1,5 @@
 def project = 'green-dispatch-219519'
-def  appName = 'sample-app'
+def  appName = 'sample-app2'
 def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 pipeline {
