@@ -14,7 +14,7 @@ pipeline {
     
     stage('SCM') {
         steps{
-    git 'https://github.com/ThomasJaspers/java-junit-sample.git'
+    git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
      slackSend color: "46c9e2", message: "git is working"
         }
   }
