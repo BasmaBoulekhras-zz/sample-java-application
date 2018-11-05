@@ -41,7 +41,7 @@ spec:
             steps {
               container('maven') {
                 sh 'mvn --version'
-            }
+              }}
         }
     
     stage('SCM') {
@@ -49,7 +49,7 @@ spec:
           container('maven') {
     git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
      slackSend color: "46c9ekubectl2", message: "git is working"
-        }
+          }}
   }
     stage('build with test') {
         steps{
@@ -68,7 +68,7 @@ spec:
                     }
                 }
                 sh 'sleep 10'
-            }
+              }}
         }
         stage("Quality Gate") {
             steps {
@@ -76,7 +76,7 @@ spec:
                 timeout(time: 3, unit: 'MINUTES') {
                waitForQualityGate abortPipeline: false
                 }
-            }
+              }}
             
         }
        stage ('Build image') {
@@ -86,7 +86,7 @@ spec:
         sh "mvn package"
          sh "ls target/*"
         sh("docker build -t ${imageTag} .")
-      }
+        }}
     }
       
        stage('Deploy') {
