@@ -2,4 +2,4 @@
    COPY . /var/www/java
    WORKDIR /var/www/java
    RUN javac Sample.java
-   ENTRYPOINT ["java", "-jar", "app-sample.jar"]
+   ENTRYPOINT ["java", "-jar", "target/app-sample.jar"]
