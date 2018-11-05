@@ -30,7 +30,7 @@ spec:
     }
   }
   stages {
-    stage('do some kubectl work') {
+    stage('some kubectl work') {
       steps {
         container('kubectl') {
           sh "kubectl get nodes"
