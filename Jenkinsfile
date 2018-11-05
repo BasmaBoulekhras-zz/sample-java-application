@@ -4,8 +4,7 @@ def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUM
 
 pipeline {
  
-   agent {
-    docker{maven:3.3.3,kubernetes:latest}}
+   agent agent { docker { image 'maven:3.3.3' } }
     stages {
         stage('build') {
             steps {
