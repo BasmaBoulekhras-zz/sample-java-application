@@ -3,7 +3,7 @@ def  appName = 'sample-app'
 def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 pipeline {
-  agent { docker { image 'maven:3.3.3' } }   
+ 
    agent {
     kubernetes {
       label 'sample-app'
