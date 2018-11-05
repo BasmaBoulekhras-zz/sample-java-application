@@ -30,14 +30,6 @@ spec:
     }
   }
   stages {
-    stage('do some kubectl work') {
-      steps {
-        container('kubectl') {
-          sh "kubectl get nodes"
-        }
-       
-      }
-    }
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
