@@ -15,10 +15,10 @@ pipeline {
     
     stage('SCM') {
         steps{
-          container('maven') {
+          
     git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
      slackSend color: "46c9ekubectl2", message: "git is working"
-          }}
+          }
   }
     stage('build with test') {
         steps{
