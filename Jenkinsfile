@@ -4,18 +4,51 @@ def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUM
 
 pipeline {
   agent { docker { image 'maven:3.3.3' } }   
- 
+   agent {
+    kubernetes {
+      label 'sample-app'
+      defaultContainer 'jnlp'
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+labels:
+  component: ci
+spec:
+  # Use service account that can deploy to all namespaces
+  serviceAccountName: cd-jenkins
+  containers:
+  - name: maven
+    image: maven:3.3.3
+    command:
+    - cat
+    tty: true
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
+    command:
+    - cat
+    tty: true
+  - name: kubectl
+    image: gcr.io/cloud-builders/kubectl
+    command:
+    - cat
+    tty: true
+"""
+}
+  }
     stages {
         stage('build') {
             steps {
+              container('maven') {
                 sh 'mvn --version'
             }
         }
     
     stage('SCM') {
         steps{
+          container('maven') {
     git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
-     slackSend color: "46c9e2", message: "git is working"
+     slackSend color: "46c9ekubectl2", message: "git is working"
         }
   }
     stage('build with test') {
@@ -27,6 +60,7 @@ pipeline {
   
      stage('build && SonarQube analysis') {
             steps {
+              container('maven') {
                 withSonarQubeEnv('jenkins') {
                     // Optionally use a Maven environment you've configured already
                     withMaven(maven:'Maven 3.5') {
@@ -38,6 +72,7 @@ pipeline {
         }
         stage("Quality Gate") {
             steps {
+              container('maven') {
                 timeout(time: 3, unit: 'MINUTES') {
                waitForQualityGate abortPipeline: false
                 }
@@ -46,18 +81,14 @@ pipeline {
         }
        stage ('Build image') {
       steps {
+        container('maven') {
         sh "ls"
         sh "mvn package"
          sh "ls target/*"
         sh("docker build -t ${imageTag} .")
       }
     }
-       stage('Build and push image with Container Builder') {
-      steps {
-        container('gcloud') {
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
-        }
-      }
+      
        stage('Deploy') {
       // Canary branch
       
