@@ -48,7 +48,7 @@ pipeline {
       steps {
         sh "ls"
         sh "mvn package"
-         sh "ls"
+         sh "ls target/*"
         sh("docker build -t ${imageTag} .")
       }
     }  
