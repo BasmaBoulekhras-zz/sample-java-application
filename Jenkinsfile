@@ -16,7 +16,7 @@ metadata:
 spec:
   containers:
   - name: kubectl
-    image: lachlanevenson/k8s-kubectl:v1.8.0
+    image: gcr.io/cloud-builders/kubectl
     command:
     - cat
     tty: true
