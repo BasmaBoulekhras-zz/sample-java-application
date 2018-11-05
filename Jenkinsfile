@@ -65,7 +65,7 @@ pipeline {
       
           // Change deployed image in canary to the one we just built
           sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${imageTag}#' ./deployment/*.yaml")
-          sh("kubectl  apply -f deployments/")
+          sh("kubectl  apply -f deployment/")
           
           sh("echo http://`kubectl  get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
         } 
