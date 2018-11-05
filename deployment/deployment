@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: sample-app
-        image: danielbryantuk/djshopfront:latest
+        image: gcr.io/cloud-solutions-images/gceme:1.0.0
         ports:
         - containerPort: 8080
         livenessProbe:
