@@ -4,7 +4,7 @@ def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUM
 
 pipeline {
  
-   agent agent { docker { image 'maven:3.3.3' } }
+    agent { docker { image 'cloudbees/jnlp-slave-with-java-build-tools' } }
     stages {
         stage('build') {
             steps {
