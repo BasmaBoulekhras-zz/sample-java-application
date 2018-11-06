@@ -35,31 +35,26 @@ spec:
     }
   }
   stages {
-     stage('build') {
+    
+     	 stage('build App') {
             steps {
              container('maven'){
-              sh 'mvn --version'
+              git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
+              sh "mvn clean install -DskipTests=true"
              }     
             }
         }
     
-    stage('SCM') {
-        steps{
-          
-    git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
-     slackSend color: "46c9ekubectl2", message: "git is working"
-          }
-  }
-    stage('build with test') {
-        steps{
-         container('maven'){
-          sh 'mvn test'
-         }
-         }
-      
-  }
+         stage('Test') {
+            steps {
+             container('maven'){
+                  sh "mvn test"
+                  step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+             }     
+            }
+        } 
        
-         stage('build && SonarQube analysis') {
+         stage('Code Analysis') {
             steps {
               container('maven'){
                 withSonarQubeEnv('jenkins') {
@@ -81,7 +76,7 @@ spec:
             
         }
       
-    /*stage('Build and push image with Container Builder') {
+    stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
@@ -89,23 +84,16 @@ spec:
       }
     }
     
-    stage('some kubectl work') {
-      steps {
-        container('kubectl') {
-          sh "kubectl get nodes"
-        }       
-      }
-    }
     
     stage('Deploy') {
       steps{
         container('kubectl') {
         // Change deployed image in canary to the one we just built
-          sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${imageTag}#' ./deployment/*.yaml")
+          sh("sed -i.bak 's#gcr.io/green-dispatch-219519/sample-app:v1#${imageTag}#' ./deployment/*.yaml")
           sh("kubectl apply -f deployment/")
           //sh("echo http://`kubectl get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
         }
       }
-    }*/
+    }
   }
 }
