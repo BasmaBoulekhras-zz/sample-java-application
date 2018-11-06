@@ -54,8 +54,7 @@ spec:
             }
         }
     
-        stage('Code Analysis') {
-      
+         stage('build && SonarQube analysis') {
             steps {
               container('maven'){
                 withSonarQubeEnv('jenkins') {
@@ -66,10 +65,8 @@ spec:
                 }
                 sh 'sleep 10'
               }}
-      
-    }
-    
-            stage("Quality Gate") {
+        }
+        stage("Quality Gate") {
             steps {
             
                 timeout(time: 3, unit: 'MINUTES') {
