@@ -38,9 +38,9 @@ spec:
  
         stage('build') {
             steps {
-             //container('maven'){
+             container('maven'){
               sh 'mvn --version'
-             //}     
+             }     
             }
         }
       
