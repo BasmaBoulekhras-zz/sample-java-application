@@ -85,12 +85,29 @@ spec:
     }
     
     
-    stage('Deploy') {
+    stage('Deploy Canary') {
+    // Canary branch
+      when { branch 'mini_test' }
+      
       steps{
         container('kubectl') {
         // Change deployed image in canary to the one we just built
-          sh("sed -i.bak 's#gcr.io/green-dispatch-219519/sample-app:v1#${imageTag}#' ./deployment/*.yaml")
-          sh("kubectl apply -f deployment/")
+          sh("sed -i.bak 's#gcr.io/green-dispatch-219519/sample-app:v1#${imageTag}#' ./k8s/canary/*.yaml")
+          sh("kubectl --namespace=canary apply -f k8s/canary/")
+          //sh("echo http://`kubectl get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
+        }
+      }
+    }
+    
+     stage('Deploy Production') {
+    // Production branch
+      when { branch 'master' }
+      
+      steps{
+        container('kubectl') {
+        // Change deployed image in canary to the one we just built
+          sh("sed -i.bak 's#gcr.io/green-dispatch-219519/sample-app:v1#${imageTag}#' ./k8s/production/*.yaml")
+          sh("kubectl --namespace=production apply -f k8s/production/")
           //sh("echo http://`kubectl get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
         }
       }
