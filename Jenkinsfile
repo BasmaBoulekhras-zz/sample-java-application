@@ -54,7 +54,7 @@ spec:
             }
         } 
        
-         stage('Code Analysis') {
+         /*stage('Code Analysis') {
             steps {
               container('maven'){
                 withSonarQubeEnv('jenkins') {
@@ -74,7 +74,7 @@ spec:
                 }
               }
             
-        }
+        }*/
       
     stage('Build and push image with Container Builder') {
       steps {
