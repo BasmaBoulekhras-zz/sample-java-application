@@ -38,9 +38,9 @@ spec:
     stages {
         stage('build') {
             steps {
-             container('maven'){
+             //container('maven'){
               sh 'mvn --version'
-             }     
+             //}     
             }
         }
     
@@ -53,16 +53,16 @@ spec:
   }
     stage('build with test') {
         steps{
-         container('maven'){
+         //container('maven'){
           sh 'mvn test'
-         }
+         //}
          }
       
   }
   
      stage('build && SonarQube analysis') {
             steps {
-              container('maven'){
+              //container('maven'){
                 withSonarQubeEnv('jenkins') {
                     // Optionally use a Maven environment you've configured already
                     withMaven(maven:'Maven 3.5') {
@@ -70,7 +70,7 @@ spec:
                     }
                 }
                 sh 'sleep 10'
-              }}
+              }//}
         }
         stage("Quality Gate") {
             steps {
@@ -83,12 +83,12 @@ spec:
         }
        stage ('Build image') {
       steps {
-        container('maven'){
+        //container('maven'){
         sh "ls"
         sh "mvn package"
          sh "ls target/*"
         sh("docker build -t ${imageTag} .")
-        }}
+        }//}
     }
       
        stage('Deploy') {
