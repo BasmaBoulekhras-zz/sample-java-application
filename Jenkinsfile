@@ -5,7 +5,7 @@ def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUM
 pipeline {
   agent {
     kubernetes {
-      label 'mypod'
+      label 'kubernetes-pod'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
