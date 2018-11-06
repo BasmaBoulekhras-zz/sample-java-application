@@ -40,7 +40,7 @@ spec:
             steps {
              container('maven'){
               git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
-              sh "mvn clean install -DskipTests=true"
+              sh "mvn install -DskipTests=true"
              }     
             }
         }
@@ -59,7 +59,7 @@ spec:
               container('maven'){
                 withSonarQubeEnv('jenkins') {
                     // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'maven:3.3.3') {
+                    withMaven(maven:'Maven 3.5') {
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
