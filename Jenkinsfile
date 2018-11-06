@@ -30,6 +30,16 @@ spec:
     }
   }
   stages {
+    
+    stages {
+        stage('build') {
+            steps {
+             //container('maven'){
+              sh 'mvn --version'
+             //}     
+            }
+        }
+      
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
