@@ -35,25 +35,30 @@ spec:
     }
   }
   stages {
-    
-        stage('build App') {
+     stage('build') {
             steps {
              container('maven'){
-              git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
-              sh "mvn install -DskipTests=true"
+              sh 'mvn --version'
              }     
             }
         }
     
-         stage('Test') {
-            steps {
-             container('maven'){
-                  sh "mvn test"
-                  //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-             }     
-            }
-        }
-    
+    stage('SCM') {
+        steps{
+          
+    git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
+     slackSend color: "46c9ekubectl2", message: "git is working"
+          }
+  }
+    stage('build with test') {
+        steps{
+         container('maven'){
+          sh 'mvn test'
+         }
+         }
+      
+  }
+       
          stage('build && SonarQube analysis') {
             steps {
               container('maven'){
