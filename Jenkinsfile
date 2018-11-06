@@ -15,6 +15,11 @@ metadata:
     some-label: some-label-value
 spec:
   containers:
+  - name: maven
+    image: maven:3.3.3
+    command:
+    - cat
+    tty: true
   - name: kubectl
     image: gcr.io/cloud-builders/kubectl
     command:
