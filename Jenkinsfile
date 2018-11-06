@@ -39,7 +39,7 @@ spec:
         stage('build') {
             steps {
              container('maven'){
-              sh 'mvn --version'
+              sh "mvn install -DskipTests=true"
              }     
             }
         }
