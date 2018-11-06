@@ -35,7 +35,7 @@ spec:
     }
   }
   stages {
- 
+    
         stage('build App') {
             steps {
              container('maven'){
@@ -45,7 +45,7 @@ spec:
             }
         }
     
-            stage('Test') {
+         stage('Test') {
             steps {
              container('maven'){
                   sh "mvn test"
@@ -53,8 +53,33 @@ spec:
              }     
             }
         }
+    
+        stage('Code Analysis') {
       
-    stage('Build and push image with Container Builder') {
+            steps {
+              container('maven'){
+                withSonarQubeEnv('jenkins') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'3.3.3') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
+                sh 'sleep 10'
+              }}
+      
+    }
+    
+            stage("Quality Gate") {
+            steps {
+            
+                timeout(time: 3, unit: 'MINUTES') {
+               waitForQualityGate abortPipeline: false
+                }
+              }
+            
+        }
+      
+    /*stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
@@ -79,6 +104,6 @@ spec:
           //sh("echo http://`kubectl get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
         }
       }
-    }
+    }*/
   }
 }
