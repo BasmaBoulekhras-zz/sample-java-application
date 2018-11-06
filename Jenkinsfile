@@ -36,10 +36,20 @@ spec:
   }
   stages {
  
-        stage('build') {
+        stage('build App') {
             steps {
              container('maven'){
+              git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
               sh "mvn install -DskipTests=true"
+             }     
+            }
+        }
+    
+            stage('Test') {
+            steps {
+             container('maven'){
+                  sh "mvn test"
+                  step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
              }     
             }
         }
