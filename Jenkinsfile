@@ -39,7 +39,7 @@ spec:
      	 stage('build App') {
             steps {
              container('maven'){
-              git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
+              //git 'https://github.com/BasmaBoulekhras/sample-java-application.git'
               sh "mvn install -DskipTests=true"
              }     
             }
