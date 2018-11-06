@@ -4,9 +4,9 @@ def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUM
 
 pipeline {
  
-    //agent { docker { image 'cloudbees/jnlp-slave-with-java-build-tools' } }
+    agent { docker { image 'cloudbees/jnlp-slave-with-java-build-tools' } }
  
-    agent {
+    /*agent {
     kubernetes {
       label 'mypod'
       defaultContainer 'jnlp'
@@ -30,7 +30,7 @@ spec:
     tty: true
 """
     }
-  }
+  }*/
     stages {
         stage('build') {
             steps {
