@@ -59,7 +59,7 @@ spec:
               container('maven'){
                 withSonarQubeEnv('jenkins') {
                     // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'Maven 3.5') {
+                    withMaven(maven:'3.3.3') {
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
