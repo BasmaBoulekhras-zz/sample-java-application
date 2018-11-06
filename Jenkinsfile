@@ -49,7 +49,7 @@ spec:
             steps {
              container('maven'){
                   sh "mvn test"
-                  step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                  //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
              }     
             }
         }
