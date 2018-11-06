@@ -23,8 +23,8 @@ spec:
     command:
     - cat
     tty: true
-  - name: docker
-    image: cloudbees/jnlp-slave-with-java-build-tools
+  - name: maven
+    image: maven:alpine
     command:
     - cat
   - name: gcloud
