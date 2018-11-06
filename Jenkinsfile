@@ -15,6 +15,11 @@ metadata:
     some-label: some-label-value
 spec:
   containers:
+  - name: maven
+    image: maven:3.3.3
+    command:
+    - cat
+    tty: true
   - name: kubectl
     image: gcr.io/cloud-builders/kubectl
     command:
@@ -30,6 +35,15 @@ spec:
     }
   }
   stages {
+ 
+        stage('build') {
+            steps {
+             container('maven'){
+              sh "mvn install -DskipTests=true"
+             }     
+            }
+        }
+      
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
