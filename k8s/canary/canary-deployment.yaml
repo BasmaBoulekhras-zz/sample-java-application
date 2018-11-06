@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-app
+  name: sample-app-canary
   labels:
     app: sample-app
 spec:
@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: sample-app-canary
+  name: sample-app
 spec:
   replicas: 1
   template:
