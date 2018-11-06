@@ -4,9 +4,9 @@ def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUM
 
 pipeline {
  
-    //agent { docker { image 'cloudbees/jnlp-slave-with-java-build-tools' } }
+    agent { docker { image 'cloudbees/jnlp-slave-with-java-build-tools' } }
  
-    agent {
+    /*agent {
     kubernetes {
       label 'mypod'
       defaultContainer 'jnlp'
@@ -34,7 +34,7 @@ spec:
     tty: true
 """
     }
-  }
+  }*/
     stages {
         stage('build') {
             steps {
@@ -98,6 +98,8 @@ spec:
         container('kubectl') {
           // Change deployed image in canary to the one we just built
           sh("sed -i.bak 's#gcr.io/cloud-solutions-images/gceme:1.0.0#${imageTag}#' ./deployment/*.yaml")
+          sh("kubectl --namespace=${env.BRANCH_NAME} apply -f deployment/")
+          
           sh("kubectl  apply -f deployment/")
           
           sh("echo http://`kubectl  get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
