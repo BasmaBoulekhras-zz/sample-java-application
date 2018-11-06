@@ -19,13 +19,14 @@ spec:
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: sample-app
+  name: sample-app-canary
 spec:
   replicas: 1
   template:
     metadata:
       labels:
         app: sample-app
+        env: canary
     spec:
       containers:
       - name: sample-app
