@@ -23,7 +23,7 @@ spec:
     command:
     - cat
     tty: true
-    - name: maven
+  - name: maven
     image: maven:alpine
     command:
     - cat
