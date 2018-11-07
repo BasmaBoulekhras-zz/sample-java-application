@@ -18,6 +18,12 @@ pipeline {
                     mavenSonarScan()
             }
         }
+        
+        stage('Build Image') {
+            steps {
+                    buildDockerImage()
+            }
+        }
       
     }
 }
