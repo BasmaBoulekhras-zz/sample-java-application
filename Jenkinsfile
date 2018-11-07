@@ -48,9 +48,9 @@ spec:
         
         stage('Sonar Scan') {
             steps {
-                 container('maven'){
+                 //container('maven'){
                     mavenSonarScan()
-                 }     
+                 //}    
             }
         }
         
