@@ -39,7 +39,7 @@ spec:
     stages {
         stage('build') {
             steps {
-             hello-world()
+             hello_world()
              /*container('maven'){
               sh 'mvn --version'
              }*/     
