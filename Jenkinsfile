@@ -32,19 +32,25 @@ spec:
     stages {
         stage('Checkout & Build') {
             steps {
-                    mavenBuild()    
+                 container('maven'){
+                    mavenBuild() 
+                 }     
             }
         }
         
         stage('Unit & Integration Testing') {
             steps {
-                    mavenTest()    
+                 container('maven'){
+                    mavenTest()   
+                 }     
             }
         }
         
         stage('Sonar Scan') {
             steps {
+                 container('maven'){
                     mavenSonarScan()
+                 }     
             }
         }
         
