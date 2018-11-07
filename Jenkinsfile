@@ -62,6 +62,42 @@ spec:
                  }     
             }
         }
+       
+       stage('Deploy Canary') {
+       // Canary branch
+       when { branch 'mini_test' }
+      
+       steps{
+          container('kubectl') {
+             deploymentLogic("canary")    
+          }
+       }
+       }
+       
+       stage('Deploy Production') {
+       // Production branch
+       when { branch 'master' }
+      
+         steps{
+           container('kubectl') {
+             deploymentLogic("production")    
+          }
+         }
+       }
+       
+       stage('Deploy Dev') {
+       // Production branch
+          when {
+             not {  branch 'master' }
+             not {  branch 'mini_test' }
+          }
+          
+         steps{
+           container('kubectl') {
+             deploymentLogic("${env.BRANCH_NAME}")    
+          }
+         }
+       }
       
     }
 }
