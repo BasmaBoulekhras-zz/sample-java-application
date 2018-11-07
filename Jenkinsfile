@@ -86,7 +86,7 @@ spec:
        }
        
        stage('Deploy Dev') {
-       // Production branch
+       // Other branch
           when {
              not {  branch 'master' }
              not {  branch 'mini_test' }
