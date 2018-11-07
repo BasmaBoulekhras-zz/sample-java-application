@@ -1,12 +1,15 @@
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
     stages {
-        stage('build') {
+        stage('Checkout & Build') {
             steps {
-                
-                    mavenBuild()
-                
-                
+                    mavenBuild()    
+            }
+        }
+        
+        stage('Unit & Integration Testing') {
+            steps {
+                    mavenTest()    
             }
         }
       
