@@ -12,6 +12,12 @@ pipeline {
                     mavenTest()    
             }
         }
+        
+        stage('Sonar Scan') {
+            steps {
+                    mavenSonarScan()
+            }
+        }
       
     }
 }
