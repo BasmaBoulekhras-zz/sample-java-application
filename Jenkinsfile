@@ -4,7 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 
-                    hello_world()
+                    initPipeline()
                 
                 
             }
