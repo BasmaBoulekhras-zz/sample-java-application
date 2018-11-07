@@ -56,7 +56,9 @@ spec:
         
         stage('Build Image') {
             steps {
+                 container('gcloud') {
                     buildDockerImage()
+                 }     
             }
         }
       
