@@ -1,5 +1,5 @@
 pipeline {
-     //agent { docker { image 'maven:3.3.3' } }
+   
      agent {
     kubernetes {
       label 'kubernetes-pod'
@@ -47,13 +47,13 @@ spec:
             }
         }
         
-        stage('Sonar Scan') {
+        /*stage('Sonar Scan') {
             steps {
                  container('maven'){
                     mavenSonarScan()
                  }    
             }
-        }
+        }*/
         
         stage('Build Image') {
             steps {
