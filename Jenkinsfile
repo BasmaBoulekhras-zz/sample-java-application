@@ -3,13 +3,12 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version'
+                
+                    mavenBuild()
+                
+                
             }
         }
-        stage('docker') {
-            steps {
-                sh 'docker --version'
-            }
-        }
+      
     }
 }
