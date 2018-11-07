@@ -13,7 +13,7 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: maven:3.5
+    image: maven:3.3.3
     command:
     - cat
     tty: true
