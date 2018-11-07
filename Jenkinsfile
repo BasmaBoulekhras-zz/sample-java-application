@@ -4,7 +4,10 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                hello_world()
+                "Parse WebHook": {
+                    hello_world()
+                }
+                
             }
         }
       
