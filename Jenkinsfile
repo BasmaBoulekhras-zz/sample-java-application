@@ -1,5 +1,6 @@
 pipeline {
-     agent {
+     agent { docker { image 'maven:3.3.3' } }
+     /*agent {
     kubernetes {
       label 'kubernetes-pod'
       defaultContainer 'jnlp'
@@ -28,21 +29,21 @@ spec:
     tty: true
 """
     }
-  }
+  }*/
     stages {
         stage('Checkout & Build') {
             steps {
-                 container('maven'){
+                 //container('maven'){
                     mavenBuild() 
-                 }     
+                // }     
             }
         }
         
         stage('Unit & Integration Testing') {
             steps {
-                 container('maven'){
+                 //container('maven'){
                     mavenTest()   
-                 }     
+                // }     
             }
         }
         
@@ -54,13 +55,13 @@ spec:
             }
         }
         
-        stage('Build Image') {
+        /*stage('Build Image') {
             steps {
                  container('gcloud') {
                     buildDockerImage()
                  }     
             }
-        }
+        }*/
       
     }
 }
