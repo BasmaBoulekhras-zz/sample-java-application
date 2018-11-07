@@ -7,10 +7,6 @@ pipeline {
                 hello_world()
             }
         }
-        stage('docker') {
-            steps {
-                sh 'docker --version'
-            }
-        }
+      
     }
 }
