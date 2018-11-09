@@ -94,9 +94,14 @@ spec:
          steps{
            container('kubectl') {
              deploymentLogic("${env.BRANCH_NAME}")    
-          }
+           }
          }
        }
+         
+        post('Publish Results') {
+        always {
+            slackBuildResult()
+        }
       
     }
 }
