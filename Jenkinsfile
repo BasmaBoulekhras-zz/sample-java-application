@@ -29,6 +29,8 @@ spec:
     tty: true
   - name: source2image
     image: gcr.io/daas-demo/source2image
+    command:
+    - cat
     tty: true
 """
     }
