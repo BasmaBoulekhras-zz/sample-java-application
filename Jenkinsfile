@@ -11,6 +11,8 @@ metadata:
   labels:
     some-label: some-label-value
 spec:
+  securityContext:
+    fsGroup: 412
   containers:
   - name: maven
     image: maven:3.3.3
@@ -29,8 +31,6 @@ spec:
     tty: true
   - name: source2image
     image: gcr.io/daas-demo/source2image
-    securityContext:
-      runAsGroup: 412
     command:
     - cat
     tty: true
