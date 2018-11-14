@@ -27,22 +27,28 @@ spec:
     command:
     - cat
     tty: true
+  - name: source2image
+    image: gcr.io/daas-demo/source2image
+		tty: true
 """
     }
   }
     stages {
         stage('Checkout & Build') {
             steps {
-                 container('maven'){
-                    mavenBuild() 
-                 }     
+              //   container('maven'){
+              //      mavenBuild() 
+              //   }     
+              container('source2image') {
+                sh '/bin/s2i build https://github.com/jorgemoralespou/s2i-java . s2i-test-image'
+              }
             }
         }
         
         stage('Unit & Integration Testing') {
             steps {
                  container('maven'){
-                    mavenTest()   
+             //       mavenTest()   
                  }     
             }
         }
@@ -50,7 +56,7 @@ spec:
         /*stage('Sonar Scan') {
             steps {
                  container('maven'){
-                    mavenSonarScan()
+            //        mavenSonarScan()
                  }    
             }
         }*/
@@ -58,46 +64,46 @@ spec:
         stage('Build Image') {
             steps {
                  container('gcloud') {
-                    buildDockerImage()
+           //         buildDockerImage()
                  }     
             }
         }
        
-       stage('Deploy Canary') {
-       // Canary branch
-       when { branch 'mini_test' }
-      
-       steps{
-          container('kubectl') {
-             deploymentLogic("canary")    
-          }
-       }
-       }
-       
-       stage('Deploy Production') {
-       // Production branch
-       when { branch 'master' }
-      
-         steps{
-           container('kubectl') {
-             deploymentLogic("production")    
-          }
-         }
-       }
-       
-       stage('Deploy Dev') {
-       // Production branch
-          when {
-             not {  branch 'master' }
-             not {  branch 'mini_test' }
-          }
-          
-         steps{
-           container('kubectl') {
-             deploymentLogic("${env.BRANCH_NAME}")    
-          }
-         }
-       }
+//       stage('Deploy Canary') {
+//       // Canary branch
+//       when { branch 'mini_test' }
+//      
+//       steps{
+//          container('kubectl') {
+//             deploymentLogic("canary")    
+//          }
+//       }
+//       }
+//       
+//       stage('Deploy Production') {
+//       // Production branch
+//       when { branch 'master' }
+//      
+//         steps{
+//           container('kubectl') {
+//             deploymentLogic("production")    
+//          }
+//         }
+//       }
+//       
+//       stage('Deploy Dev') {
+//       // Production branch
+//          when {
+//             not {  branch 'master' }
+//             not {  branch 'mini_test' }
+//          }
+//          
+//         steps{
+//           container('kubectl') {
+//             deploymentLogic("${env.BRANCH_NAME}")    
+//          }
+//         }
+//       }
       
     }
 }
