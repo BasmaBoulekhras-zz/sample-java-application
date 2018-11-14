@@ -33,6 +33,20 @@ spec:
     command:
     - cat
     tty: true
+    volumeMounts:
+    - mountPath: /usr/bin/docker
+      name: docker-bin
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+  volumes:
+  - name: docker-bin
+    hostPath:
+      path: /usr/bin/docker
+    type: File
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock
+    type: Socket
 """
     }
   }
