@@ -29,7 +29,7 @@ spec:
     tty: true
   - name: source2image
     image: gcr.io/daas-demo/source2image
-		tty: true
+    tty: true
 """
     }
   }
