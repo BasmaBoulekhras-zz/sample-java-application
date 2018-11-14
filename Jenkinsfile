@@ -4,10 +4,10 @@ pipeline {
     kubernetes {
       label 'kubernetes-pod'
       defaultContainer 'jnlp'
-      volumes [
+      volumes "[
         hostPathVolume(mountPath: '/usr/bin/docker', hostPath: '/usr/bin/docker'),
         hostPathVolume(mouthPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
-      ]
+      ]"
       yaml """
 apiVersion: v1
 kind: Pod
