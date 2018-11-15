@@ -58,7 +58,7 @@ spec:
               //      mavenBuild() 
               //   }     
               container('source2image') {
-                sh '/bin/s2i build https://github.com/jorgemoralespou/s2i-java . s2i-test-image'
+                sh '/bin/s2i build . gcr.io/daas-demo/s2i-java s2i-test-image'
               }
             }
         }
