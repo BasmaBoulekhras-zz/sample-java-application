@@ -58,8 +58,9 @@ spec:
               //      mavenBuild() 
               //   }     
               container('source2image') {
-                sh '/usr/bin/docker pull gcr.io/daas-demo/s2i-java'
-                sh '/bin/s2i build . gcr.io/daas-demo/s2i-java s2i-test-image'
+                sh 'docker login -u _json_key -p "$(cat /opt/credentials.json)" https://gcr.io'
+                // sh '/usr/bin/docker pull gcr.io/daas-demo/s2i-java'
+                // sh '/bin/s2i build . gcr.io/daas-demo/s2i-java s2i-test-image'
               }
             }
         }
