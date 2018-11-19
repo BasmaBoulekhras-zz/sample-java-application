@@ -31,8 +31,6 @@ spec:
     tty: true
   - name: source2image
     image: gcr.io/daas-demo/source2image
-    securityContext:
-      runAsUser: 10000
     command:
     - cat
     tty: true
@@ -62,7 +60,7 @@ spec:
               container('source2image') {
                 sh 'docker login -u _json_key -p "$(cat /opt/credentials.json)" https://gcr.io'
                 // sh '/usr/bin/docker pull gcr.io/daas-demo/s2i-java'
-                // sh '/bin/s2i build . gcr.io/daas-demo/s2i-java s2i-test-image'
+                sh '/bin/s2i build . gcr.io/daas-demo/s2i-java s2i-test-image'
               }
             }
         }
