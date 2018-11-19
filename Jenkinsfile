@@ -31,6 +31,8 @@ spec:
     tty: true
   - name: source2image
     image: gcr.io/daas-demo/source2image
+    securityContext:
+      runAsUser: 10000
     command:
     - cat
     tty: true
