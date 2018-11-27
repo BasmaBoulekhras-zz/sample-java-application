@@ -1,5 +1,5 @@
 pipeline {
-   
+     
      agent {
     kubernetes {
       label 'kubernetes-pod'
@@ -86,7 +86,7 @@ spec:
        }
        
        stage('Deploy Dev') {
-       // Production branch
+       // Other branch
           when {
              not {  branch 'master' }
              not {  branch 'mini_test' }
@@ -95,9 +95,16 @@ spec:
          steps{
            container('kubectl') {
              deploymentLogic("${env.BRANCH_NAME}")    
-          }
+           }
          }
        }
+         
       
-    }
+}
+       /*post('Publish Results') {
+        always {
+            slackBuildResult()
+        }
+      
+        }*/
 }
