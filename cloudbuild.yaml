@@ -5,7 +5,7 @@ steps:
       'functions',
       'deploy','${_NAME}',
       '--source=https://source.developers.google.com/projects/${PROJECT_ID}/repos/default/moveable-aliases/master/paths/',
-      '--trigger-bucket=${_ROOT}-trigger',
+      '--trigger-bucket=${_ROOT}-basma',
       '--entry-point=thumbnail',
       '--project=${PROJECT_ID}'
   ]
