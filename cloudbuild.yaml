@@ -1,0 +1,11 @@
+steps:
+- name: gcr.io/cloud-builders/gcloud
+  args: [
+      'beta',
+      'functions',
+      'deploy','${_NAME}',
+      '--source=https://source.developers.google.com/projects/${PROJECT_ID}/repos/default/moveable-aliases/master/paths/',
+      '--trigger-bucket=${_ROOT}-trigger',
+      '--entry-point=thumbnail',
+      '--project=${PROJECT_ID}'
+  ]
