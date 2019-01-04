@@ -9,3 +9,5 @@ steps:
       '--entry-point=thumbnail',
       '--project=${PROJECT_ID}'
   ]
+  
+  #Trigger test 
